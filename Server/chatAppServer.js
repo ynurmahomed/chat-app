@@ -47,11 +47,7 @@ var chatApp = (function () {
         var msg;
 
         msg = data.user + ": "+data.text;
-
-        /*socket.broadcast.to("main-room").emit("news", msg);*/
         io.sockets.in("main-room").emit("news", data);
-        /*socket.emit("news", msg);
-        socket.broadcast.emit("news", msg);*/
         console.log(new Date(), ": chatAppServer: new message: emited: "+msg);
     }
     /**
@@ -59,19 +55,14 @@ var chatApp = (function () {
      */
     registerUser = function (socket, nick, callback) {
         if(userList.isConnected(nick) || nick == "sys") {
-            //err();
             callback(false);
         }
         else {
             userList.connect(nick);
-            //success(users.getConnectedUsers());
             socket.join("main-room");
             callback(true);
             console.log(new Date, "User: "+nick+" connected");
             emitMessage(socket, {"user":"sys", "date":new Date(),"text":nick+" entrou no chat!"});
-            /*socket.emit("users", users.getConnectedUsers());
-            socket.broadcast.emit("users", users.getConnectedUsers());*/
-            /*io.sockets.in("main-room").emit("users", users.getConnectedUsers());*/
             io.sockets.in("main-room").emit("users", users.getConnectedUsers());
         }
     }
@@ -81,8 +72,6 @@ var chatApp = (function () {
     unregisterUser = function (socket, nick) {
         userList.disconnect(nick);
         emitMessage(socket, {"user":"sys", "date":new Date(),"text":nick+" saiu do chat! :("});
-        /*socket.broadcast.emit("users", users.getConnectedUsers());
-        io.sockets.in("main-room").emit("users", users.getConnectedUsers());*/
         socket.leave("main-room");
         io.sockets.in("main-room").emit("users", users.getConnectedUsers());
     }

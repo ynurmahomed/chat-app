@@ -11,7 +11,6 @@
         var nick = document.createElement("b");
         var newLine = document.createElement("li");
 
-        /*var newMessageText = document.createTextNode(newMessage);*/
         nick.appendChild(document.createTextNode(user));
         newLine.appendChild(nick);
         newLine.appendChild(document.createTextNode(newMessage));
@@ -215,19 +214,17 @@
         view.clearInput();
         view.showNickInput();
         view.clearConnectedUsersList();
-        //disconnect();/*TO-DO: Usar outra forma de terminar a app*/
+        //disconnect();/*TO-DO: Usar outra forma de terminar a app*/P
     }
     return {
         init : function () {
-            nick        = "";
-            serverUrl   = "http://localhost:8080";
-            view        = chatAppView;
-            /*socket      = io.connect(serverUrl);*/
+            nick = "";
+            serverUrl = "http://localhost:8080";
+            view = chatAppView;
             
             view.init();
             registerListeners();
             connect();
-            /*socket.on("news", updateChat);*/
         }
     }
 })();
