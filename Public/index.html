@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatApp</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css"></link>
+</head>
+<body>
+    <div class="container">
+        <div class="chatapp">
+            <h1>&nbsp;ChatApp</h1>
+        </div>
+        <div class="messages">
+            <div class="message-list">
+                <ul id="message-list"></ul>
+                <a id="message-list-bottom"></a>
+            </div>
+            <div class="button-list">
+                <ul>
+                    <li><button id="disconnect" type="button" class="hidden">sair</button></li>
+                    <!--<li><button id="clear-messages" type="button">limpar</button></li>-->
+                </ul>
+            </div>
+            <input id="newNick" type="text" placeholder="digite seu nick"/>
+            <div style="clear:both;"></div>
+            <div class="">
+                <input id="newMessage" class="hidden" type="text" placeholder="chat agora!"/>
+            </div>
+        </div>
+        <div class="connected-users">
+            <ul id="connected-users"></ul>
+        </div>
+        <div style="clear: both;"></div>
+
+        <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+        <script src="chatApp.js"></script>
+    </div>
+</body>
+</html>

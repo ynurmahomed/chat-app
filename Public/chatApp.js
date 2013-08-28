@@ -16,7 +16,7 @@
         newLine.appendChild(document.createTextNode(newMessage));
         messageList.appendChild(newLine);
         listBottom.scrollIntoView(true);
-    }
+    };
     /**
      * Coloca o usuario conectado na lista de usuarios conectados
      *   no futuro pode se usar o appendToList acima
@@ -27,7 +27,7 @@
 
         newLine.appendChild(newConnectedUserNick);
         connectedUsersList.appendChild(newLine);
-    }
+    };
     return {
         init : function () {
             messageInput = document.getElementById("newMessage");
@@ -51,7 +51,7 @@
         hideNickInput : function () {
             nickInput.className = "hidden";
         },
-        
+
         showNickInput : function () {
             nickInput.className = "visible";
         },
@@ -59,7 +59,7 @@
         hideMessageInput : function () {
             messageInput.className = "hidden";
         },
-        
+
         showMessageInput : function () {
             messageInput.className = "visible";
         },
@@ -102,7 +102,7 @@
         getDisconnectBt : function () {
             return disconnectBt;
         }
-    }
+    };
 })();
 /**
  * Controle
@@ -119,7 +119,7 @@
         view.getMessageInput().addEventListener("keyup", postMessage, false);
         view.getNickInput().addEventListener("keyup", registerNick, false);
         view.getDisconnectBt().addEventListener("click", unregisterNick, false);
-    }
+    };
     /**
      * Conecta o socket ao servidor
      */
@@ -127,28 +127,28 @@
         socket = io.connect(serverUrl);
         socket.on("news", updateChat);
         socket.on("users", updateUsers);
-    }
+    };
     /**
      * Disconecta do servidor
      */
     disconnect = function () {
         socket.disconnect();
-    }
+    };
     /**
      * Envia a nova mensagem ao servidor
      */
     postMessage = function (event) {
         if (event.keyCode === 13 && view.getMessageText() !== "") {
                 socket.emit("new-message", {
-                    "user":nick, 
-                    "date":new Date(), 
+                    "user":nick,
+                    "date":new Date(),
                     "text":view.getMessageText()
                 });
                 console.log("Emited new message");
 
                 view.clearInput();
             }
-        }
+        };
     /**
      * Atualiza a janela do chat com mensagens recebidas
      */
@@ -162,7 +162,7 @@
         }
         console.log("Recieved new message");
         console.log(data);
-    }
+    };
     /**
      * Atualiza a lista de usuários conectados (não terminado)
      */
@@ -171,7 +171,7 @@
         for (var user in users) {
             view.appendUser(user);
         }
-    }
+    };
     /**
      * Função que será executada se o nick estiver disponível
      */
@@ -179,13 +179,13 @@
         view.hideNickInput();
         view.showMessageInput();
         view.showDisconnectBt();
-    }
+    };
     /**
      * Função que será executada se o nick não estiver disponível
      */
     nickNotAvailable = function () {
         view.appendMessage("","O nick desejado não está disponível");
-    }
+    };
     /**
      * Registra o nick do usuário no servidor
      */
@@ -201,7 +201,7 @@
                 }
             });
         }
-    }
+    };
     /**
      * Disconecta o usuario
      */
@@ -215,19 +215,19 @@
         view.showNickInput();
         view.clearConnectedUsersList();
         //disconnect();/*TO-DO: Usar outra forma de terminar a app*/P
-    }
+    };
     return {
         init : function () {
             nick = "";
             serverUrl = "http://localhost:8080";
             view = chatAppView;
-            
+
             view.init();
             registerListeners();
             connect();
         }
-    }
+    };
 })();
 window.onload = function () {
     chatApp.init();
-}
+};
