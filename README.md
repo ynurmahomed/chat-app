@@ -1,4 +1,4 @@
 chat-app
 ========
 
-Simple chat app using socket.io
+Simples aplicação para chat usando socket.io
