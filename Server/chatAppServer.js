@@ -24,7 +24,7 @@ var users = (function () {
         getConnectedUsers : function () {
             return users;
         }
-    }
+    };
 
 })();
 /**
@@ -39,7 +39,7 @@ var chatApp = (function () {
     sHandler = function (req, res) {
         res.writeHead(200, {"Content-Type" : "text/plain"});
         res.end();
-    }
+    };
     /**
      * Envia a mensagem a todos os clientes conectados
      */
@@ -49,7 +49,7 @@ var chatApp = (function () {
         msg = data.user + ": "+data.text;
         io.sockets.in("main-room").emit("news", data);
         console.log(new Date(), ": chatAppServer: new message: emited: "+msg);
-    }
+    };
     /**
      * Registra o usuário no servidor
      */
@@ -65,7 +65,7 @@ var chatApp = (function () {
             emitMessage(socket, {"user":"sys", "date":new Date(),"text":nick+" entrou no chat!"});
             io.sockets.in("main-room").emit("users", users.getConnectedUsers());
         }
-    }
+    };
     /**
      * Remove o usuário
      */
@@ -74,7 +74,7 @@ var chatApp = (function () {
         emitMessage(socket, {"user":"sys", "date":new Date(),"text":nick+" saiu do chat! :("});
         socket.leave("main-room");
         io.sockets.in("main-room").emit("users", users.getConnectedUsers());
-    }
+    };
     /**
      * Verifica se a mensagem enviada pelo cliente é valida
      *   a mensagem deve ser do tipo "object"
@@ -83,11 +83,11 @@ var chatApp = (function () {
         if(typeof data === "object") {
             return true;
         } else {
-            console.log(new Date(), ": chatAppServer: O Cliente enviou uma nova"
-              +" mensagem no formato incorreto");
+            console.log(new Date(), ": chatAppServer: O Cliente enviou uma nova"+
+                " mensagem no formato incorreto");
             return false;
         }
-    }
+    };
     /**
      * Trata das mensagens emitidas pelo cliente
      */
@@ -103,7 +103,7 @@ var chatApp = (function () {
         socket.on("user-disconnected", function (nick) {
             unregisterUser(socket, nick);
         });
-    }
+    };
     return {
         init : function () {
             server    = require("http").createServer(sHandler);
@@ -112,9 +112,9 @@ var chatApp = (function () {
             io.sockets.on("connection", pHandler);
             server.listen(8080);
 
-            console.log(new Date(), ": chatAppServer: Started. Listening on "
-              +"port 8080");
+            console.log(new Date(), ": chatAppServer: Started. Listening on "+
+                "port 8080");
         }
-    }
+    };
 })();
 chatApp.init();
