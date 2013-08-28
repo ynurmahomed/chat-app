@@ -1,0 +1,22 @@
+{
+  "name": "chat-app",
+  "version": "0.0.1",
+  "description": "Simples aplicação para chat usando socket.io",
+  "main": "Server/chatAppServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yass-n/chat-app.git"
+  },
+  "author": "yassin",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/yass-n/chat-app/issues"
+  },
+  "dependencies": {
+    "socket.io": "~0.9.16",
+    "socket.io-client": "~0.9.16"
+  }
+}
